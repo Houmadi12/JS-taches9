@@ -5,17 +5,25 @@
  */
 let td1 = document.querySelector("#td1");
 let td2 = document.querySelector("#td2");
+let tableau = document.querySelector("#tra");
 
-let taba = [5,3,87,1,-4,-99,0];
+// tableau.innerHTML = "Bonjour"
 
-// Trie le tableau
+let n = 7;
+
+let taba = [];
+
+taba = SaiseTab(n);
+
+afficheTab(taba,tableau);
+// Trie le table.au
 trieTableau(taba);
 
 //Fonction de trie
-function trieTableau(tableau){
-    for(let i=0; i<tableau.length; i++){
-        for(let j=0; j<tableau.length; j++){
-            if(tableau[i] < tableau[j]){
+function trieTableau(tableau) {
+    for (let i = 0; i < tableau.length; i++) {
+        for (let j = 0; j < tableau.length; j++) {
+            if (tableau[i] < tableau[j]) {
                 let a = tableau[i];
                 tableau[i] = tableau[j];
                 tableau[j] = a;
@@ -24,44 +32,37 @@ function trieTableau(tableau){
     }
 }
 
-// Fonction pour chercher max et min dans un tableau
-function MaxTableau(tabl){
-    let max = 0
-
-    for(let i=0; i<tabl.length; i++){
-        if(max < tabl[i]){
-            max = tabl[i];
-        }
-    }
-
-    return max;
-}
-
-function MinTableau(tabl){
-    let min = 0
-
-    for(let i=0; i<tabl.length; i++){
-        if(min > tabl[i]){
-            min = tabl[i];
-        }
-    }
-
-    return min;
-}
 
 //  Affiche de tableau trier
 let tr = document.querySelector("#tr");
-let result = "";
-taba.forEach((element) => {
-    result += `
+
+afficheTab(taba,tr);
+
+function afficheTab(tab, selecteur) {
+    let result = "";
+    tab.forEach((element) => {
+        result += `
         <td>${element}</td>
     `;
-})
+    })
 
-tr.innerHTML = result;
+    selecteur.innerHTML = result;
+}
 
+
+// Saisie du tableau
+function SaiseTab(tabLength) {
+    let tab = [];
+    for (let i = 0; i < tabLength; i++) {
+        do{
+            tab[i] = parseInt(prompt(`Saisie l'élement ${i + 1}/${n} du tableau`));
+        }while(isNaN(tab[i]))
+    }
+
+    return tab;
+}
 
 // Affich Max min 
 
-td1.innerHTML = "Max du tableau est : "+MaxTableau(taba);
-td2.innerHTML = "Min du tableau est : "+MinTableau(taba);
+td1.innerHTML = "Max du tableau est : " + taba[taba.length - 1];
+td2.innerHTML = "Min du tableau est : " + taba[0];
